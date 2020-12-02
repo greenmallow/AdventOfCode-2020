@@ -1,5 +1,8 @@
 # File Input
-input_file = open('day02/input.txt')
+try:
+    input_file = open('input.txt')
+except FileNotFoundError:
+    input_file = open('day02/input.txt')
 
 input = []
 
