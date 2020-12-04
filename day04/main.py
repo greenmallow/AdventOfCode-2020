@@ -51,12 +51,10 @@ def count_valid_passports_p1():
     count_valid = 0
 
     for passport in passports:
-        # Validate the passport        
         if validate_fields(passport):
             count_valid += 1        
 
     return count_valid
-    
     
 
 # Part 2 Solver
