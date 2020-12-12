@@ -55,7 +55,49 @@ def part_one():
 
 # Part 2 Solver
 def part_two():
-    pass
+    # North and east are positive, south and west are negative
+    ship_ns_pos = 0
+    ship_ew_pos = 0
+    waypoint_ns_pos = 1
+    waypoint_ew_pos = 10
+
+    for instruction in input:
+        action = instruction[0]
+        value = int(instruction[1:])
+
+        if action == 'N':
+            waypoint_ns_pos += value
+        elif action == 'S':
+            waypoint_ns_pos -= value
+        elif action == 'E':
+            waypoint_ew_pos += value
+        elif action == 'W':
+            waypoint_ew_pos -= value
+        elif action == 'L':
+            # Rotates the waypoint around the ship left (anti-clockwise)
+            rotations = value // 90
+
+            for i in range(rotations):
+                prev_positions = [waypoint_ns_pos, waypoint_ew_pos]
+                waypoint_ew_pos = -prev_positions[0]
+                waypoint_ns_pos = prev_positions[1]
+
+        elif action == 'R':
+            # Rotates the waypoint around the ship right (clockwise)
+            rotations = value // 90
+
+            for i in range(rotations):
+                prev_positions = [waypoint_ns_pos, waypoint_ew_pos]
+                waypoint_ew_pos = prev_positions[0]
+                waypoint_ns_pos = -prev_positions[1]
+
+        elif action == 'F':
+            ship_ew_pos += (value * waypoint_ew_pos)
+            ship_ns_pos += (value * waypoint_ns_pos)
+    
+    # Calculate Manhattan distance from starting point
+    manhattan_dist = abs(ship_ns_pos) + abs(ship_ew_pos)
+    return manhattan_dist
 
 
 print('Part 1 Answer:', part_one())
