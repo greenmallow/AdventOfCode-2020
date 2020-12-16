@@ -5,7 +5,6 @@ except FileNotFoundError:
     input_file = open('day14/input.txt')
 
 input = []
-highest_addr = 0
 
 for line in input_file:
     if line.endswith('\n'):
