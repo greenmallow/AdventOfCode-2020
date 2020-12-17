@@ -44,7 +44,7 @@ while input[line] != '':
     data = input[line].split(': ')
     field = data[0] # Name of the field
     ranges = data[1].split(' or ')
-    range_values = [] # The minimum and maximum values of each range
+    range_values = [] # The minimum and maximum values of both ranges
 
     for rng in ranges:
         values = rng.split('-')
@@ -84,7 +84,7 @@ def part_one():
 def part_two():
     start_of_nearby_tickets = input.index('nearby tickets:') + 1
 
-    # Create a list containing only tickets without invalid values
+    # Create a list containing only tickets with no invalid values
     valid_tickets = []
 
     for i in range(start_of_nearby_tickets, len(input)):
@@ -101,7 +101,7 @@ def part_two():
         if valid:
             valid_tickets.append(input[i])
     
-    # Map each position to what fields it could potentially be
+    # Map each position in a ticket to what fields it could potentially be
     potential_fields = dict()
 
     for i in range(len(fields)):
@@ -117,12 +117,12 @@ def part_two():
                     fields_to_remove.add(field)
         
         # Remove the invalid fields from the list of potential fields
+        # for position i
         for field in fields_to_remove:
             potentials.remove(field)
         
         # Store this position's potential fields in the dict
         potential_fields[i] = potentials
-
     
     # Reduces the list of potential fields in each position to 1 by
     # looking at which fields have already been determined and removing
@@ -135,7 +135,6 @@ def part_two():
     sum_potentials = 0
     for pos in potential_fields:
         sum_potentials += len(potential_fields[pos])
-    
     
     while sum_potentials > len(fields):
         determined_field = ''
